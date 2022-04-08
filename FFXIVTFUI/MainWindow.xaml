@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FFXIVTFUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="FFXIV Text Formatter" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="0" Content="Menu (File > Upload File, About, Help, etc.)" Grid.ColumnSpan="2" Background="AliceBlue"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Unfiltered text" Background="DarkKhaki"/>
+        <!-- Put a Grid inside DarkKhaki to put a tab inside to choose a filter-->
+        <Label Grid.Row="1" Grid.Column="1" Content="Filtered text" Background="DarkSeaGreen"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Save file as"/>
+        <Label Grid.Row="2" Grid.Column="1" Content="Save file as"/>
 
     </Grid>
 </Window>
