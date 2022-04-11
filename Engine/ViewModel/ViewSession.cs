@@ -17,16 +17,6 @@ namespace Engine.ViewModel
             CurrentTextLog = new TextLog();
             CurrentTextLog.FilePath = @"E:\ffxiv_logs_for_test\FINAL FANTASY XIV - A Realm Reborn\FFXIV_CHR004000174B48D772\log\00000000.log";
             CurrentTextLog.RawText = File.ReadAllText(CurrentTextLog.FilePath);
-            CurrentTextLog.Test = "binding workd!";
-            /*
-            CurrentLog = new TextLog
-            {
-                // this should be user input later
-                FilePath = @"E:\ffxiv_logs_for_test\FINAL FANTASY XIV - A Realm Reborn\FFXIV_CHR004000174B48D772\log\00000000.log",
-                RawText = File.ReadAllText(CurrentLog.FilePath)
-            };
-            */
-            
         }
     }
 }

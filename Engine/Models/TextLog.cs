@@ -10,6 +10,5 @@ namespace Engine.Models
     {
         public string FilePath { get; set; }
         public string RawText { get; set; }
-        public string Test { get; set; }
     }
 }
