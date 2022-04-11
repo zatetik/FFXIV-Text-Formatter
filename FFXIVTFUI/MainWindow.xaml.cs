@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Engine.ViewModel;
 
 namespace FFXIVTFUI
 {
@@ -20,9 +21,14 @@ namespace FFXIVTFUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewSession _viewSession;
         public MainWindow()
         {
             InitializeComponent();
+
+            _viewSession = new ViewSession();
+
+            DataContext = _viewSession;
         }
     }
 }

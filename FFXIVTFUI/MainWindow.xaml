@@ -1,9 +1,10 @@
-﻿<Window x:Class="FFXIVTFUI.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FFXIVTFUI"
+        xmlns:ViewModel="clr-namespace:Engine.ViewModel;assembly=Engine" xmlns:Models="clr-namespace:Engine.Models;assembly=Engine" x:Class="FFXIVTFUI.MainWindow"
         mc:Ignorable="d"
         Title="FFXIV Text Formatter" Height="450" Width="800">
     <Grid>
@@ -17,9 +18,19 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Content="Menu (File > Upload File, About, Help, etc.)" Grid.ColumnSpan="2" Background="AliceBlue"/>
+        <Label Grid.Row="0" Content="Menu (File &gt; Upload File, About, Help, etc.)" Grid.ColumnSpan="2" Background="AliceBlue"/>
+        <!--
         <Label Grid.Row="1" Grid.Column="0" Content="Unfiltered text" Background="DarkKhaki"/>
+        -->
         <!-- Put a Grid inside DarkKhaki to put a tab inside to choose a filter-->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBox Grid.Row="0" Grid.Column="0" Text="{Binding CurrentTextLog.Test}"></TextBox>
+
+        </Grid>
         <Label Grid.Row="1" Grid.Column="1" Content="Filtered text" Background="DarkSeaGreen"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Save file as"/>
         <Label Grid.Row="2" Grid.Column="1" Content="Save file as"/>
