@@ -36,7 +36,20 @@
             </ScrollViewer>
 
         </Grid>
+        <!--
         <Label Grid.Row="1" Grid.Column="1" Content="Filtered text" Background="DarkSeaGreen"/>
+        -->
+        <Grid Grid.Row="1" Grid.Column="1" Background="DarkSeaGreen">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Filtered text" Background="DarkSeaGreen"/>
+            <ScrollViewer Grid.Row="1" Grid.Column="0">
+                <TextBox TextWrapping="Wrap" Text="{Binding CurrentTextLog.FilteredText}"></TextBox>
+            </ScrollViewer>
+        </Grid>
         <Label Grid.Row="2" Grid.Column="0" Content="Save file as"/>
         <Label Grid.Row="2" Grid.Column="1" Content="Save file as"/>
 
