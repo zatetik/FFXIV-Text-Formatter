@@ -17,7 +17,18 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!--
         <Label Grid.Row="0" Content="Menu (File &gt; Upload File, About, Help, etc.)" Grid.ColumnSpan="2" Background="AliceBlue"/>
+        -->
+        
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" Background="AliceBlue">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open..."/>
+                <MenuItem Header="_Save As..."/>
+            </MenuItem>
+            <MenuItem Header="_About"/>
+        </Menu>
+        
         <!--
         <Label Grid.Row="1" Grid.Column="0" Content="Unfiltered text" Background="DarkKhaki"/>
         -->

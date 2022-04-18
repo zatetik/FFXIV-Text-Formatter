@@ -41,7 +41,7 @@ namespace Engine.ViewModel
             cleanedText = CleanRawText(CurrentTextLog.RawText);
             //DisplayBattleLogs();
             //DisplayNPCLogs();
-            DisplayPlayerLogs();
+            //DisplayPlayerLogs();
         }
 
         public string CleanRawText(string text)
