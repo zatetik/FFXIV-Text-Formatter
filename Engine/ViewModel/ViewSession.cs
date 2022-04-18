@@ -22,6 +22,12 @@ namespace Engine.ViewModel
         private readonly string playerDelimiterStart = ":'"; //start of name
         private readonly string playerDelimiterEnd = "':"; //end of name
 
+
+        private readonly char[] charsToTrim = new char[] { '0','1','2','3','4','5','6','7','8','9',
+                'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+                'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                '#', '&', '>', '<','♂','♀',']','[','%','\\', ':','_','(','+','/', '@', '=', '*','~', '{', '}', '|' };
+
         // initialized in each option (battle, npc, player)
         public List<string> logLine;
         private string cleanedText;
@@ -33,7 +39,9 @@ namespace Engine.ViewModel
             CurrentTextLog.RawText = File.ReadAllText(CurrentTextLog.FilePath);
             //CurrentTextLog.FilteredText = CleanRawText(CurrentTextLog.RawText);
             cleanedText = CleanRawText(CurrentTextLog.RawText);
-            DisplayBattleLogs();
+            //DisplayBattleLogs();
+            //DisplayNPCLogs();
+            DisplayPlayerLogs();
         }
 
         public string CleanRawText(string text)
@@ -108,6 +116,53 @@ namespace Engine.ViewModel
             CurrentTextLog.FilteredText = String.Join("\n", logLine);
             
         }
+
+        void DisplayNPCLogs()
+        {
+            string[] npcSplit = cleanedText.Split(
+                npcDelimiter,
+                StringSplitOptions.RemoveEmptyEntries);
+
+            logLine = new List<string>();
+            int i = 0;
+            foreach (string line in npcSplit)
+            {
+                i++;
+                string trimmedLine = TrimAllCharactersAfterLastExpression(".", line);
+                //string trimmedLine = TrimCharactersAfterLastPeriod(line);
+                //trimmedLine = line.TrimEnd(charsToTrim);
+                trimmedLine = TrimDelimiterFrom(trimmedLine, battleDelimiter);
+                trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterEnd);
+                trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
+                logLine.Add("[NPC] " + trimmedLine);
+
+            }
+            CurrentTextLog.FilteredText = String.Join("\n", logLine);
+
+        }
+
+        void DisplayPlayerLogs()
+        {
+            string[] playerSplit = cleanedText.Split(
+                playerDelimiterStart,
+                StringSplitOptions.RemoveEmptyEntries);
+
+            logLine = new List<string>();
+
+            int i = 0;
+            foreach (string line in playerSplit)
+            {
+                i++;
+                //string trimmedLine = TrimCharactersAfterLastPeriod(line);
+                string trimmedLine = line.TrimEnd(charsToTrim);
+                trimmedLine = TrimDelimiterFrom(trimmedLine, npcDelimiter);
+                trimmedLine = TrimDelimiterFrom(trimmedLine, battleDelimiter);
+                logLine.Add("[PLAYER] " + trimmedLine);
+            }
+            CurrentTextLog.FilteredText = String.Join("\n", logLine);
+
+        }
+
 
         private static string TrimAllCharactersAfterLastExpression(string expression, string line)
         {
