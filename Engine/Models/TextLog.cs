@@ -9,10 +9,20 @@ namespace Engine.Models
 {
     public class TextLog : INotifyPropertyChanged
     {
+        private string _rawText;
         private string _filteredText;
         public string FilePath { get; set; }
-        public string RawText { get; set; }
-        public string FilteredText { 
+        public string RawText 
+        { 
+            get { return _rawText; } 
+            set
+            {
+                _rawText = value;
+                OnPropertyChanged(nameof(RawText));
+            }
+        }
+        public string FilteredText 
+        { 
             get { return _filteredText; } 
             set 
             { 
