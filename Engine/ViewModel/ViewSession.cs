@@ -30,15 +30,20 @@ namespace Engine.ViewModel
 
         // initialized in each option (battle, npc, player)
         public List<string> logLine;
-        private string cleanedText;
+        public string cleanedText;
 
         public ViewSession()
         {
             CurrentTextLog = new TextLog();
+
+            /* 
+            // temp removed, check MainWindow.xaml.cs 
             CurrentTextLog.FilePath = @"E:\ffxiv_logs_for_test\FINAL FANTASY XIV - A Realm Reborn\FFXIV_CHR004000174B48D772\log\00000000.log";
             CurrentTextLog.RawText = File.ReadAllText(CurrentTextLog.FilePath);
-            //CurrentTextLog.FilteredText = CleanRawText(CurrentTextLog.RawText);
             cleanedText = CleanRawText(CurrentTextLog.RawText);
+            */
+
+            //CurrentTextLog.FilteredText = CleanRawText(CurrentTextLog.RawText);
             //DisplayBattleLogs();
             //DisplayNPCLogs();
             //DisplayPlayerLogs();
