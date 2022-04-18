@@ -22,12 +22,18 @@ namespace Engine.ViewModel
         readonly string playerDelimiterStart = ":'"; //start of name
         readonly string playerDelimiterEnd = "':"; //end of name
 
+        // initialized in each option (battle, npc, player)
+        public List<string> logLine;
+        public string cleanedText;
+
         public ViewSession()
         {
             CurrentTextLog = new TextLog();
             CurrentTextLog.FilePath = @"E:\ffxiv_logs_for_test\FINAL FANTASY XIV - A Realm Reborn\FFXIV_CHR004000174B48D772\log\00000000.log";
             CurrentTextLog.RawText = File.ReadAllText(CurrentTextLog.FilePath);
-            CurrentTextLog.FilteredText = CleanRawText(CurrentTextLog.RawText);
+            //CurrentTextLog.FilteredText = CleanRawText(CurrentTextLog.RawText);
+            cleanedText = CleanRawText(CurrentTextLog.RawText);
+            DisplayBattleLogs();
         }
 
         public string CleanRawText(string text)
@@ -39,9 +45,11 @@ namespace Engine.ViewModel
 
         public void DisplayBattleLogs()
         {
-            string[] battleSplit = CurrentTextLog.FilteredText.Split(
+            string[] battleSplit = cleanedText.Split(
                 battleDelimiter, 
                 StringSplitOptions.RemoveEmptyEntries);
+
+            logLine = new List<string>();
 
             int i = 0;
             foreach (string line in battleSplit)
@@ -51,13 +59,15 @@ namespace Engine.ViewModel
                 {
                     if (!line.EndsWith("."))
                     {
-                        string trimmedLine = TrimCharactersAfterLastPeriod(line);
+                        string trimmedLine = TrimAllCharactersAfterLastExpression(".", line);
+                        //string trimmedLine = TrimCharactersAfterLastPeriod(line);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, npcDelimiter);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterEnd);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
                         //Console.WriteLine("[BATTLE][{0}] {1}", i, trimmedLine);
                         //Trace.WriteLine(trimmedLine);
-                        
+
+                        logLine.Add(line);
                         //TODO: add trimmedLine to a list object (see TODO on top of page)
                     }
                 }
@@ -65,12 +75,13 @@ namespace Engine.ViewModel
                 {
                     if (!line.EndsWith("!"))
                     {
-                        string trimmedLine = TrimCharactersAfterLastExclamation(line);
+                        string trimmedLine = TrimAllCharactersAfterLastExpression("!", line);
+                        //string trimmedLine = TrimCharactersAfterLastExclamation(line);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, npcDelimiter);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterEnd);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
                         //Trace.WriteLine(trimmedLine);
-
+                        logLine.Add(line);
                         //TODO: add trimmedLine to a list object (see TODO on top of page)
                     }
                 }
@@ -80,26 +91,28 @@ namespace Engine.ViewModel
                     trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterEnd);
                     trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
                     //Trace.WriteLine(trimmedLine);
+                    logLine.Add(line);
 
                     //TODO: add trimmedLine to a list object (see TODO on top of page)
                 }
 
             }
+
+            //CurrentTextLog.FilteredText = cleanedText;
+            CurrentTextLog.FilteredText = String.Join("\n", logLine);
+            
         }
 
-        private static string TrimCharactersAfterLastPeriod(string line)
+        private static string TrimAllCharactersAfterLastExpression(string expression, string line)
         {
-            int indexPeriod = line.LastIndexOf(".");
+            int indexPeriod = line.LastIndexOf(expression);
             if (indexPeriod != -1)
             {
-                //Console.WriteLine(line.Substring(0, index+1));
-                line = line.Substring(0, indexPeriod) + ".";
+                line = line.Substring(0, indexPeriod) + expression;
             }
-
 
             return line;
         }
-
 
         private static string TrimDelimiterFrom(string line, string delimiter)
         {
@@ -108,21 +121,6 @@ namespace Engine.ViewModel
             {
                 line = line.Substring(0, index);
             }
-            return line;
-        }
-
-        private static string TrimCharactersAfterLastExclamation(string line)
-        {
-            int indexExclamation = line.LastIndexOf("!");
-
-            //throws OutOfIndexException
-
-            if (indexExclamation != -1)
-            {
-                //Console.WriteLine(line.Substring(0, indexExclamation+1));
-                line = line.Substring(0, indexExclamation) + "!";
-            }
-
             return line;
         }
 
