@@ -22,9 +22,9 @@
         -->
         
         <Menu Grid.Row="0" Grid.ColumnSpan="2" Background="AliceBlue">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Open..."/>
-                <MenuItem Header="_Save As..."/>
+            <MenuItem  Header="_File">
+                <MenuItem x:Name="MenuItemOpen" Header="_Open..." Click="MenuItemOpen_Click" />
+                <MenuItem x:Name="MenuItemSaveAs" Header="_Save As..."/>
             </MenuItem>
             <MenuItem Header="_About"/>
         </Menu>

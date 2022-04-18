@@ -30,5 +30,10 @@ namespace FFXIVTFUI
 
             DataContext = _viewSession;
         }
+
+        private void MenuItemOpen_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("I've been clicked");
+        }
     }
 }
