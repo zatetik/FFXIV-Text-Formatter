@@ -17,14 +17,14 @@ namespace Engine.ViewModel
     {
         public TextLog CurrentTextLog { get; set; }
 
-        readonly string battleDelimiter = "::";
-        readonly string npcDelimiter = "=:";
-        readonly string playerDelimiterStart = ":'"; //start of name
-        readonly string playerDelimiterEnd = "':"; //end of name
+        private readonly string battleDelimiter = "::";
+        private readonly string npcDelimiter = "=:";
+        private readonly string playerDelimiterStart = ":'"; //start of name
+        private readonly string playerDelimiterEnd = "':"; //end of name
 
         // initialized in each option (battle, npc, player)
         public List<string> logLine;
-        public string cleanedText;
+        private string cleanedText;
 
         public ViewSession()
         {
@@ -66,8 +66,10 @@ namespace Engine.ViewModel
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
                         //Console.WriteLine("[BATTLE][{0}] {1}", i, trimmedLine);
                         //Trace.WriteLine(trimmedLine);
+                        
+                        //logLine.Add(trimmedLine);
 
-                        logLine.Add(line);
+                        logLine.Add("[BATTLE] " + trimmedLine);
                         //TODO: add trimmedLine to a list object (see TODO on top of page)
                     }
                 }
@@ -81,17 +83,21 @@ namespace Engine.ViewModel
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterEnd);
                         trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
                         //Trace.WriteLine(trimmedLine);
-                        logLine.Add(line);
+                        //logLine.Add(trimmedLine);
+                        logLine.Add("[BATTLE] " + trimmedLine);
+
                         //TODO: add trimmedLine to a list object (see TODO on top of page)
                     }
                 }
+
                 else
                 {
                     string trimmedLine = TrimDelimiterFrom(line, npcDelimiter);
                     trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterEnd);
                     trimmedLine = TrimDelimiterFrom(trimmedLine, playerDelimiterStart);
                     //Trace.WriteLine(trimmedLine);
-                    logLine.Add(line);
+                    //logLine.Add(trimmedLine);
+                    logLine.Add("[BATTLE] " + trimmedLine);
 
                     //TODO: add trimmedLine to a list object (see TODO on top of page)
                 }
